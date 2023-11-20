@@ -1,5 +1,8 @@
-import mysql.connector as my
+import mysql.connector as my #pip install mysql-connector-python
 from mysql.connector import errorcode
+from datetime import date
+
+
 
 class BancoDeDados:
 
@@ -22,29 +25,31 @@ class BancoDeDados:
 
         return self.conexao
 
+    
     def mostrar_registros(self):
         registros = []
         try:
+            cursor = self.db_connection.cursor()
             print('Selecionando todos os produtos')
             sql_select_query = '''SELECT * FROM ESTOQUE'''
-            self.cursor.execute(sql_select_query)
+            cursor.execute(sql_select_query)
             registros = self.cursor.fetchall()
             print(registros)
 
         except (Exception, my.Error) as erro:
-            print('Ocorreu um erro e não foi possível selecionar a tabela, erro: ', erro)
+            print('Ocorreu um erro e não foi possível selecionar a tabela, erro: ',erro)
 
         finally:
             if self.db_connection.is_connected():
-                self.cursor.close()
-
+                cursor.close()
+        
         return registros
 
     def cadastrar_criarTabela(self, nome, marca, especificacao, quantidade):
         try:
             sql = "INSERT INTO ESTOQUE VALUES (NULL, %s, %s, %s, %s)"
             valores = (nome, marca, especificacao, quantidade)
-            self.cursor.execute(sql, valores)
+            cursor.execute(sql, valores)
             self.db_connection.commit()
             print('Os dados foram inseridos!')
         except my.Error as erro:
@@ -53,9 +58,10 @@ class BancoDeDados:
             else:
                 print(f'Ocorreu um erro: {erro}')
 
+
     def criar_tabela(self):
         tabela = """
-        CREATE TABLE IF NOT EXISTS ESTOQUE (
+        CREATE TABLE ESTOQUE (
         ID INT AUTO_INCREMENT,
         NOME TEXT NOT NULL,
         MARCA TEXT NOT NULL,
@@ -63,7 +69,9 @@ class BancoDeDados:
         QUANTIDADE INT NOT NULL,
         PRIMARY KEY (ID)
         );
+
         """
         self.cursor.execute(tabela)
         self.db_connection.commit()
         print('TABELA CRIADA!')
+
