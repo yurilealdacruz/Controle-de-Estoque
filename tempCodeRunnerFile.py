@@ -1,26 +1,23 @@
-import customtkinter as ctk #pip install customtkinter
-import mysql.connector as my #pip install mysql-connector-python
-from mysql.connector import errorcode
-from datetime import date
-from classbd import BancoDeDados
-
     #BANCO DE DADOS
 class Cadastrar:
 
     def __init__(self):
-        self.bd = BancoDeDados()
-        self.criar_interface()
-
+        bd = BancoDeDados()
         
-    def criar_interface(self):
+
+        #INTERFACE GRÁFICA
         janela = ctk.CTk()
         janela.title("Cadastro de ITEM")
 
-        ctk.CTkLabel(janela, text="Cadastre o ITEM: ").grid(row=0, column=1, pady=20, padx=20)
-        ctk.CTkLabel(janela, text=self.bd.connectarbd()).grid(row=0, column=2, pady=20, padx=20)
-        ctk.CTkLabel(janela, text="").grid(row=6, column=1, pady=20, padx=20)
+        labelInicio = ctk.CTkLabel(janela, text="Cadastre o ITEM: ").grid(row=0, column=1, pady=20, padx=20)
+        labelConexao = ctk.CTkLabel(janela, text=bd.connectarbd()).grid(row=0, column=2, pady=20, padx=20)
+        labelSql = ctk.CTkLabel(janela, text="").grid(row=6, column=1, pady=20, padx=20)
 
-        ctk.CTkLabel(janela, text="NOME: ").grid(row=1, column=1,padx=10, pady=10)
+        #labelId = ctk.CTkLabel(janela, text="ID: ").grid(row=1, column=1,padx=10, pady=10)
+        #caixaId = ctk.CTkEntry(janela, placeholder_text="Digite o ID")
+        #caixaId.grid(row=1, column=2,padx=10, pady=10)
+
+        labelNome = ctk.CTkLabel(janela, text="NOME: ").grid(row=1, column=1,padx=10, pady=10)
         caixaNome = ctk.CTkEntry(janela, placeholder_text="Digite o Nome")
         caixaNome.grid(row=1, column=2,padx=10, pady=10)
 
@@ -36,7 +33,7 @@ class Cadastrar:
         caixaQuantidade = ctk.CTkEntry(janela, placeholder_text="Digite a Quatidade")
         caixaQuantidade.grid(row=4, column=2,padx=10, pady=10)
 
-        botaoCadastrar = ctk.CTkButton(janela, text="Cadastrar", command=self.cadastrar()).grid(row=5, column=2,padx=10, pady=10)
+        botaoCadastrar = ctk.CTkButton(janela, text="Cadastrar", command=bd.cadastrar_criarTabela()).grid(row=5, column=2,padx=10, pady=10)
         botaoSair = ctk.CTkButton(janela, text="Sair",command=janela.destroy).grid(row=5, column=1,padx=10, pady=10)
 
 
