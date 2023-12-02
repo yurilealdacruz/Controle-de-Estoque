@@ -45,6 +45,3 @@ class Cadastrar:
         quantidade = caixaQuantidade.get()
 
         self.bd.cadastrar_criarTabela(nome, marca, especificacao, quantidade)
-
-# Exemplo de uso
-iniciar = Cadastrar()

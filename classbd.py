@@ -23,13 +23,12 @@ class BancoDeDados:
         return self.conexao
 
     def mostrar_registros(self):
+        self.connectarbd()
         registros = []
         try:
-            print('Selecionando todos os produtos')
             sql_select_query = '''SELECT * FROM ESTOQUE'''
             self.cursor.execute(sql_select_query)
             registros = self.cursor.fetchall()
-            print(registros)
 
         except (Exception, my.Error) as erro:
             print('Ocorreu um erro e não foi possível selecionar a tabela, erro: ', erro)
@@ -52,7 +51,28 @@ class BancoDeDados:
                 print('A tabela já existe.')
             else:
                 print(f'Ocorreu um erro: {erro}')
+                print('A tabela está sendo criada...')
+                self.criar_tabela()
 
+    
+    def atualizar(self, nome, marca, especificacao, quantidade, id_reg):
+        try:
+            self.connectarbd()  # Certifica-se de que a conexão está aberta
+            # Altera os valores no banco de dados
+            sql = "UPDATE ESTOQUE SET NOME = %s, MARCA = %s, ESPECIFICACAO = %s, QUANTIDADE = %s WHERE ID = %s"
+            valores = (nome, marca, especificacao, quantidade, id_reg)
+            self.cursor.execute(sql, valores)
+            self.db_connection.commit()
+            print('Os dados foram atualizados')
+
+        except my.Error as erro:
+            print(f'Ocorreu um erro: {erro}')
+
+        finally:
+            # Fecha o cursor e a conexão
+            if self.db_connection.is_connected():
+                self.cursor.close()
+                self.db_connection.close()
     def criar_tabela(self):
         tabela = """
         CREATE TABLE IF NOT EXISTS ESTOQUE (
@@ -67,3 +87,17 @@ class BancoDeDados:
         self.cursor.execute(tabela)
         self.db_connection.commit()
         print('TABELA CRIADA!')
+
+    def deletar(self, id_capturado):
+        self.connectarbd()
+        sql_delete = '''DELETE FROM ESTOQUE WHERE ID = %s'''
+        valor_para_deletar = id_capturado
+        self.cursor.execute(sql_delete, (valor_para_deletar,))
+        self.db_connection.commit()
+        print(f'Registro com o ID {id_capturado} foi deletado com sucesso!')
+        self.db_connection.close()
+
+    def recuperar_registros(self):
+        sql_select_query = '''SELECT * FROM ESTOQUE'''
+        self.cursor.execute(sql_select_query)
+        registros = self.cursor.fetchall()

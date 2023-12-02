@@ -1,9 +1,9 @@
 import customtkinter as ctk #pip install customtkinter
 import webbrowser
+from tela import Tela
 
 class Main:
     def __init__(self, win):
-        # INTERFACE GRÁFICA
         ctk.set_appearance_mode("System")  
         ctk.set_default_color_theme("blue")
 
@@ -22,9 +22,10 @@ class Main:
     #FUNÇÕES
     def abrir_tela(self):
         if self.caixaLogin.get() == "Yuri" and self.caixaSenha.get() == "123":
-            import tela
             janela.destroy()
-            return tela.tela()
+            Tela()
+            
+            
             
     def info():
         webbrowser.open("https://yurilealdacruz.github.io/")
