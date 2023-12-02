@@ -1,4 +1,4 @@
-import mysql.connector as my
+import mysql.connector as my #pip install mysql-connector-python
 from mysql.connector import errorcode
 
 class BancoDeDados:

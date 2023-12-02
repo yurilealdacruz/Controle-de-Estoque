@@ -1,7 +1,6 @@
 import customtkinter as ctk #pip install customtkinter
 from cadastrar import Cadastrar
 from vizualizar import Vizualizar
-#import vizualizar
 
 class Tela:
     def __init__(self):
