@@ -25,6 +25,6 @@ Este é um projeto de controle de estoque desenvolvido em Python, com integraç�
 ![Atualizar Registro](https://github.com/yurilealdacruz/Controle-de-Estoque/assets/100494057/792450fb-0dcb-4515-8ab8-cee87ffce1da)
 
 ## Requisitos e Dependências
-pip install customtkinter
-pip install mysql-connector-python
+1. pip install customtkinter
+2. pip install mysql-connector-python
 
