@@ -1,6 +1,7 @@
 import customtkinter as ctk #pip install customtkinter
 import webbrowser
 from tela import Tela
+from classbd import CriarBancoDeDados
 
 class Main:
     def __init__(self, win):
@@ -22,8 +23,11 @@ class Main:
     #FUNÇÕES
     def abrir_tela(self):
         if self.caixaLogin.get() == "Yuri" and self.caixaSenha.get() == "123":
-            janela.destroy()
-            Tela()
+            for widget in janela.winfo_children(): 
+                widget.destroy()
+
+            CriarBancoDeDados()
+            Tela(janela=janela) 
             
             
             
@@ -34,6 +38,6 @@ class Main:
 janela = ctk.CTk()
 printipal = Main(janela)
 janela.title("Controle de Estoque")
-janela.geometry("500x260")
+janela.geometry("500x260+700+325")
 janela.resizable(0,0)
 janela.mainloop()
