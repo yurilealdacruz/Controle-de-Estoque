@@ -1,32 +1,27 @@
 import customtkinter as ctk #pip install customtkinter
 from cadastrar import Cadastrar
-from vizualizar import Vizualizar
+from visualizar import Visualizar
 
 class Tela:
-    def __init__(self):
+    def __init__(self, janela: ctk.CTk):
+        self.janela = janela
+        self.janela.title("Opções do controle de Estoque")
+        self.janela.geometry("350x190+700+325")
 
-        def cadastrar_item():
-            return Cadastrar()
-        
-        def vizualizar():
-            return Vizualizar()
-        
-        janela = ctk.CTk()
-        janela.title("Opções do controle de Estoque")
+        ctk.CTkLabel(self.janela, text="Escolha uma das opções: ")
 
-        ctk.CTkLabel(janela, text="Escolha uma das opções: ")
+        labelEstoque = ctk.CTkLabel(self.janela, text="Controle de Estoque")
+        ctk.CTkLabel(self.janela, text="Controle de Salas")
 
-        labelEstoque = ctk.CTkLabel(janela, text="Controle de Estoque")
-        ctk.CTkLabel(janela, text="Controle de Salas")
-
-
-        botaoCadastro = ctk.CTkButton(janela, text="Cadastrar", command=cadastrar_item)
-        botaoAtualizar = ctk.CTkButton(janela, text="Vizualizar / Atualizar", command=vizualizar)
+        botaoCadastro = ctk.CTkButton(self.janela, text="Cadastrar", command=self.cadastrar_item)
+        botaoAtualizar = ctk.CTkButton(self.janela, text="Visualizar / Atualizar", command=self.visualizar)
 
         labelEstoque.place(x=120, y=20)
         botaoCadastro.place(x=110, y=70)
         botaoAtualizar.place(x=110, y=120)
 
-        janela.geometry("350x190")
-        janela.resizable(0,0)
-        janela.mainloop()
+    def cadastrar_item(self):
+        return Cadastrar()
+        
+    def visualizar(self):
+        return Visualizar()

@@ -1,6 +1,22 @@
 import mysql.connector as my #pip install mysql-connector-python
 from mysql.connector import errorcode
 
+class CriarBancoDeDados:
+    
+    def __init__(self):
+        try:
+            self.db_connection = my.connect(host='localhost', user='root', password='13579')
+            self.cursor = self.db_connection.cursor()
+            self.cursor.execute("CREATE DATABASE IF NOT EXISTS bd")
+            self.db_connection.commit()
+        
+        except Exception as erro:
+            print(f"Erro ao tentar criar o banco de dados:\n{erro}")
+        
+        finally:
+            self.cursor.close()
+            self.db_connection.close()
+
 class BancoDeDados:
 
     def __init__(self):
